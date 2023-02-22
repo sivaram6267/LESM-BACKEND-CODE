@@ -167,7 +167,6 @@
 
 	</dependencies>
 
-	
 	<build>
 		<plugins>
 			<plugin>
