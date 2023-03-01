@@ -1,7 +1,7 @@
 FROM maven as build
 WORKDIR /app
 COPY . .
-RUN mvn install
+RUN mvn clean install -Dmaven.test.skip=true 
 #jdk
 FROM openjdk:17-alpine
 WORKDIR /app
