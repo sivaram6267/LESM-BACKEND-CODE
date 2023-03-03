@@ -1,73 +1,25 @@
 pipeline{
-    
-    agent any 
-    
-    stages {
-        
-        stage('Git Checkout'){
-            
-            steps{
-                
-                script{
-                    
-                    git branch: 'master', url: 'https://github.com/sivaram6267/LESM-BACKEND-CODE.git'
+     
+     agent any 
+
+     stages{
+        stage('sonar quliyt check'){
+
+            agent {
+                docker {
+                    image 'maven'
                 }
             }
-        }
-        stage('UNIT testing'){
-            
-            steps{
-                
+            steps {
+
                 script{
-                    
-                    sh 'mvn test'
-                }
-            }
-        }
-        stage('Integration testing'){
-            
-            steps{
-                
-                script{
-                    
-                    sh 'mvn verify -DskipUnitTests'
-                }
-            }
-        }
-        stage('Maven build'){
-            
-            steps{
-                
-                script{
-                    
-                    sh 'mvn clean install'
-                }
-            }
-        }
-        stage('Static code analysis'){
-            
-            steps{
-                
-                script{
-                    
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+
+                    withSonarQubeEnv(credentiasId: 'sonar-token'){
                         
-                        sh 'mvn clean package sonar:sonar'
-                    }
-                   }
-                    
-                }
-            }
-            stage('Quality Gate Status'){
-                
-                steps{
-                    
-                    script{
-                        
-                        waitForQualityGate abortPipeline: false, credentialsId: 'sonar-api'
+                        sh 'mvn clean pakcage sonar:sonar'
                     }
                 }
             }
         }
-        
+     }
 }
