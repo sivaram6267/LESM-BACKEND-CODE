@@ -3,7 +3,7 @@ pipeline{
      agent any 
 
      stages{
-        stage('sonar quliyt check'){
+        stage('sonar qulity check'){
 
             agent {
                 docker {
